@@ -1,0 +1,116 @@
+Change Log:
+1.) Removed ifwt.c from project. Was never really part of it anyway. 
+2.) Replaced pipein.c with get_data.c which is much more flexible and  
+    allows for arbitrary M by N ascii data files to be imported. Note
+    that currently only 1, 2, or 3 column input is supported. 
+3.) Speaking of that, 1, 2, or 3 column input is now supported. See
+    below in the DESCRIPTION section for more information.
+4.) Added a gaussian routine for bootstraping (Box-Muller).
+5.) Added a poisson routine for bootstraping (Used Knuth's algorithm from
+    The Art of Computer Programming, Vol2).
+6.) Added wavlet_variance and heatmap routines to the project. 
+
+################## PURPOSE  #############################################
+
+
+
+################## MAN PAGE #############################################
+NAME
+         fwt - decomposes an array of numbers into wavelet coefficients.
+
+ 
+ SYNOPSIS
+         fwt [OPTION]... < [file]...
+  DESCRIPTION
+         This software expects input in the form of ascii numbers with one, 
+	 two, or three columns. If one column then that column must be the 
+	 series to to transform. If two columns then the first column is 
+	 the index (such as time) and the second is the series (signal) to 
+	 be transformed. If three columns are supplied then the first 
+	 column is the index, the second is the series (signal) to be 
+	 transformed, and the third column is the uncertainty. If only one 
+	 or two columns are given then the uncertainty is assumed to be 
+	 the square root of the signal. columns must be of length 2^m where 
+	 m is a positive integer. The maximum size of m depends on the 
+	 machine running the code. It is the user's responsibility to 
+	 guarantee the length of the data. In any case the signal is assumed 
+	 to be uniformly sampled.
+
+  
+         Input is supplied in the form of pipes or redirection. This can be 
+	 accomplished via:
+           cat INPUTFILE | fwt
+         or 
+           fwt < INPUTFILE
+ 
+         Different wavelet filters can be chosen via command line options.
+ 
+           cat INPUTFILE | fwt -d2
+         or
+           cat INPUTFILE | fwt -c12 --offset 3
+ 
+         If no wavelet filter is specified the default, -d2 (aka the Haar 
+	 basis), is assumed.
+  
+         A positive offset to the signal may be specified by the --offset 
+	 option or -o For example, if there were an array 1,2,3...7,8 and 
+	 an offset of one were given then the signal would be processed as 
+         8,1,2...6,7. This is useful when adjusting the appearance of a 
+	 scalogram. Any statistical measure which sums over position
+         values in an octave will be insensitive to offset.
+ 
+ 
+         The output of the code is also two column ascii data. The first column 
+	 is index information and the second column holds the transformed signal. 
+ 
+ OPTIONS
+         -d NUM, --daub=NUM Daubechies family of wavelet filters. NUM=2 gives 
+	               the Haar filter. NUM determines wavelet support and can be 2, 4, 6.
+ 
+         -c NUM, --coif=NUM Coiflet family of wavelet filters. NUM determines 
+	    	       wavelet support and can be 6, 12, or 18.
+ 
+ 
+         -i, --inverse Does inverse of fwt. 
+ 
+         -o NUM, --order=NUM Specifies offset of the signal. If offset is not 
+	               specified a default value of zero is assumed. 
+ 
+ 	-g, --gaussian Bootstrap based on a gaussian probability distribution. The mean 
+	 	       is zero and the width (sigma) is taken from the third column. 
+		       If a third column isn't given then the width is assumed 
+ 		       to be the square root of the number of counts.
+ 	 	       This option is incompatible with poisson bootstrap. 
+ 
+ 	-p, --poisson Bootstrap based on a poisson probability distribution 
+		       (Knuth's The Art of Computer Programming, Vol. 2.)
+ 		       The parameter lamda is taken from the third column. 
+		       If a third column isn't given then the width 
+ 		       is assumed to be the square root of the number of counts.
+ 	 	       This option is incompatible with gaussian bootstrap. 
+ 
+ AUTHOR
+         Written by Glen Alan MacLachlan.
+ 
+ REPORTING BUGS
+         Report bugs to <bindatype@gmail.com>
+ 
+ COPYRIGHT
+        Copyright © 2010 Glen Alan MacLachlan.  
+	License GPLv3+: GNU GPL version 3 
+	or later <http://gnu.org/licenses/gpl.html> This is free software: you 
+	are free to change and redistribute it.  
+	There is NO WARRANTY, to the extent permitted by law.
+
+ REQUIREMENTS
+          gcc
+          make
+ 
+ 
+ COMPILING
+         To make the project type:
+           make
+ 
+         To clean the project, i.e., remove the objects and executable:
+           make clean
+
