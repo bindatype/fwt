@@ -25,58 +25,58 @@
 
 int main (int argc, char **argv)
 {
-  double *index,*signal,*uncert;
-  int i,j,k,m;
-  int counter;
-  int octave;
+	double *index,*signal,*uncert;
+	int i,j,k,m;
+	int counter;
+	int octave;
 
-  struct data ts;
-  ts = get_data(stdin,ts);
+	struct data ts;
+	ts = get_data(stdin,ts);
 
-    index = malloc(ts.ROWS*sizeof(double));
-    signal = malloc(ts.ROWS*sizeof(double));
-    uncert = malloc(ts.ROWS*sizeof(double));
-    stack_columns(index,signal,uncert,ts);
-    if ( 1 != ts.COLS && 2 != ts.COLS && 3 != ts.COLS ) {
-      puts(" ");
-      puts("WRONG NUMBER OF COLUMNS!");
-      puts("Acceptable formats for input files are 1, 2 or 3 columns."); 
-      puts("Try awk if necessary.");
-//      puts("For usage use -h or --help.");
-      free( index );
-      free( signal );  
-      free( uncert );  
-      free( ts.value ); 
-      exit(EXIT_FAILURE);
-    }
-
-
-  counter = 1;
-  m = 0;
-  
-  for ( i = 1; i < ts.ROWS ; i++)
-  {
-    octave = (int) pow(2,m);
-    if ( 0 == ( i % octave ) ) 
-    {
-      ++m;
-      k = 0;
-      counter <<= 1;
-      puts (" ");
-    }
-    for ( j = 0; j < ts.ROWS/counter; j++)
-    {
-      if ( fabs(signal[i]) <= 0.000001) signal[i] = 0.000001;
-      printf("%d %d %f \n",k++,m,log(signal[i]*signal[i]) );
-    }
-  }
+	index = malloc(ts.ROWS*sizeof(double));
+	signal = malloc(ts.ROWS*sizeof(double));
+	uncert = malloc(ts.ROWS*sizeof(double));
+	stack_columns(index,signal,uncert,ts);
+	if ( 1 != ts.COLS && 2 != ts.COLS && 3 != ts.COLS ) {
+		puts(" ");
+		puts("WRONG NUMBER OF COLUMNS!");
+		puts("Acceptable formats for input files are 1, 2 or 3 columns."); 
+		puts("Try awk if necessary.");
+		//      puts("For usage use -h or --help.");
+		free( index );
+		free( signal );  
+		free( uncert );  
+		free( ts.value ); 
+		exit(EXIT_FAILURE);
+	}
 
 
- 
-  free( index );
-  free( signal ); 
-  free( uncert );
-  free( ts.value );
- 
-  return 0;
+	counter = 1;
+	m = 0;
+
+	for ( i = 1; i < ts.ROWS ; i++)
+	{
+		octave = (int) pow(2,m);
+		if ( 0 == ( i % octave ) ) 
+		{
+			++m;
+			k = 0;
+			counter <<= 1;
+			puts (" ");
+		}
+		for ( j = 0; j < ts.ROWS/counter; j++)
+		{
+			if ( fabs(signal[i]) <= 0.000001) signal[i] = 0.000001;
+			printf("%d %d %f \n",k++,m,log(signal[i]*signal[i]) );
+		}
+	}
+
+
+
+	free( index );
+	free( signal ); 
+	free( uncert );
+	free( ts.value );
+
+	return 0;
 }

@@ -9,8 +9,8 @@
 
 
 struct data {
-  int COLS,ROWS,SIZE;
-  double *value;
+	int COLS,ROWS,SIZE;
+	double *value;
 };
 
 struct data get_data(FILE * stream,struct data this_struct);

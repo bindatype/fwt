@@ -28,44 +28,44 @@
 
 int main (int argc, char **argv)
 {
-  double Min;
-  double *index=NULL,*signal=NULL,*uncert=NULL;
+	double Min;
+	double *index=NULL,*signal=NULL,*uncert=NULL;
 
-  struct data ts;
-  ts = get_data(stdin,ts);
+	struct data ts;
+	ts = get_data(stdin,ts);
 
-  index = malloc(ts.ROWS*sizeof(double));
-  signal = malloc(ts.ROWS*sizeof(double));
-  uncert = malloc(ts.ROWS*sizeof(double));
-  stack_columns(index,signal,uncert,ts);
-    if ( 1 != ts.COLS && 2 != ts.COLS && 3 != ts.COLS ) {
-      puts(" ");
-      puts("WRONG NUMBER OF COLUMNS!");
-      puts("Acceptable formats for input files are 1, 2 or 3 columns."); 
-      puts("Try awk if necessary.");
-//      puts("For usage use -h or --help.");
-      free( index );
-      free( signal );  
-      free( uncert );  
-      free( ts.value ); 
-      exit(EXIT_FAILURE);
-    }
-
-
+	index = malloc(ts.ROWS*sizeof(double));
+	signal = malloc(ts.ROWS*sizeof(double));
+	uncert = malloc(ts.ROWS*sizeof(double));
+	stack_columns(index,signal,uncert,ts);
+	if ( 1 != ts.COLS && 2 != ts.COLS && 3 != ts.COLS ) {
+		puts(" ");
+		puts("WRONG NUMBER OF COLUMNS!");
+		puts("Acceptable formats for input files are 1, 2 or 3 columns."); 
+		puts("Try awk if necessary.");
+		//      puts("For usage use -h or --help.");
+		free( index );
+		free( signal );  
+		free( uncert );  
+		free( ts.value ); 
+		exit(EXIT_FAILURE);
+	}
 
 
-  Min = signal[0];
-  for ( int i = 1; i < ts.ROWS ; i++)
-  {
-    if (signal[i] < Min) {Min = signal[i];}
-  }
-  printf(" %g\n",Min);
 
- 
-  free( index );
-  free( signal );  
-  free( uncert );  
-  free( ts.value );  
 
-  return 0;
+	Min = signal[0];
+	for ( int i = 1; i < ts.ROWS ; i++)
+	{
+		if (signal[i] < Min) {Min = signal[i];}
+	}
+	printf(" %g\n",Min);
+
+
+	free( index );
+	free( signal );  
+	free( uncert );  
+	free( ts.value );  
+
+	return 0;
 }

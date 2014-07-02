@@ -1,8 +1,9 @@
 # Copyright (C) 2010 Glen Alan MacLachlan
 
 CC=gcc
-CFLAGS=  -Wall -g -ansi -std=c99 -O0 
-CMATH= -lm
+CFLAGS=  -Wall -g -ansi -std=c99 -O0 -fopenmp -lgomp
+LDFLAGS= #-lgomp
+CMATH= -lm 
 INCLUDE=-I ./include
 SRC=src
 OBJECTS= usage.o get_data.o math_helper.o 
@@ -12,10 +13,10 @@ EXE=fwt
 all: get_data math_helper usage fwt wavelet_variance heatmap reverse_tail get_mean get_variance get_min get_max agg dagg
 
 fwt: 
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJECTS) $(SRC)/$(EXE).c -o $(EXE) $(CMATH)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDE) $(OBJECTS) $(SRC)/$(EXE).c -o $(EXE) $(CMATH) 
 
 math_helper:
-	$(CC) $(CFLAGS) $(INCLUDE) $(SRC)/math_helper.c -c $(CMATH)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDE) $(SRC)/math_helper.c -c $(CMATH)
 
 get_data:
 	$(CC) $(CFLAGS) $(INCLUDE) $(SRC)/get_data.c -c

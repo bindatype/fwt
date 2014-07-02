@@ -372,7 +372,7 @@ int main(int argc, char **argv)
 	free( temp );
 	free(ts.value);
 
-	fclose(fp);
+	//fclose(fp);
 
 	if (gaus || pois)
 		free (boot_noise);

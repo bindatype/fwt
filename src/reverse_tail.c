@@ -29,61 +29,61 @@
 int main (int argc, char **argv)
 {
 
-  double *index;
-  double *signal;
-  double *uncert;
- 
-  int i;
-  int j;
+	double *index;
+	double *signal;
+	double *uncert;
 
-  struct data ts;
-  ts = get_data(stdin,ts);
+	int i;
+	int j;
 
-    index = malloc(ts.ROWS*sizeof(double));
-    signal = malloc(ts.ROWS*sizeof(double));
-    uncert = malloc(ts.ROWS*sizeof(double));
-    stack_columns(index,signal,uncert,ts);
-    if ( 1 != ts.COLS && 2 != ts.COLS && 3 != ts.COLS ) {
-      puts(" ");
-      puts("WRONG NUMBER OF COLUMNS!");
-      puts("Acceptable formats for input files are 1, 2 or 3 columns."); 
-      puts("Try awk if necessary.");
-//      puts("For usage use -h or --help.");
-      free( index );
-      free( signal );  
-      free( uncert );  
-      free( ts.value ); 
-      exit(EXIT_FAILURE);
-    }
+	struct data ts;
+	ts = get_data(stdin,ts);
+
+	index = malloc(ts.ROWS*sizeof(double));
+	signal = malloc(ts.ROWS*sizeof(double));
+	uncert = malloc(ts.ROWS*sizeof(double));
+	stack_columns(index,signal,uncert,ts);
+	if ( 1 != ts.COLS && 2 != ts.COLS && 3 != ts.COLS ) {
+		puts(" ");
+		puts("WRONG NUMBER OF COLUMNS!");
+		puts("Acceptable formats for input files are 1, 2 or 3 columns."); 
+		puts("Try awk if necessary.");
+		//      puts("For usage use -h or --help.");
+		free( index );
+		free( signal );  
+		free( uncert );  
+		free( ts.value ); 
+		exit(EXIT_FAILURE);
+	}
 
 
- 
-  if ( 3 == ts.COLS ) {
-    for ( i = 0; i < ts.ROWS ; i++)
-    {
-      printf("%d %20.16f %20.16f\n", i , signal[i], uncert[i]);
-    }
-    j = 0;
-    for ( i = ts.ROWS-1; i >= 0 ; i--)
-    {
-      printf("%d %20.16f %20.16f\n", ts.ROWS+j++, signal[i], uncert[i]);
-    }
-  } else {
-    for ( i = 0; i < ts.ROWS ; i++)
-    {
-      printf("%d %20.16f\n", i , signal[i]);
-    }
-    j = 0;
-    for ( i = ts.ROWS-1; i >= 0 ; i--)
-    {
-      printf("%d %20.16f\n", ts.ROWS+j++, signal[i]);
-    }
-  } 
 
- 
-  free( ts.value );
-  free( index );
-  free( signal );  
-  free( uncert );
-  return 0;
+	if ( 3 == ts.COLS ) {
+		for ( i = 0; i < ts.ROWS ; i++)
+		{
+			printf("%d %20.16f %20.16f\n", i , signal[i], uncert[i]);
+		}
+		j = 0;
+		for ( i = ts.ROWS-1; i >= 0 ; i--)
+		{
+			printf("%d %20.16f %20.16f\n", ts.ROWS+j++, signal[i], uncert[i]);
+		}
+	} else {
+		for ( i = 0; i < ts.ROWS ; i++)
+		{
+			printf("%d %20.16f\n", i , signal[i]);
+		}
+		j = 0;
+		for ( i = ts.ROWS-1; i >= 0 ; i--)
+		{
+			printf("%d %20.16f\n", ts.ROWS+j++, signal[i]);
+		}
+	} 
+
+
+	free( ts.value );
+	free( index );
+	free( signal );  
+	free( uncert );
+	return 0;
 }
