@@ -53,13 +53,13 @@ void stack_columns(double *index,
       for ( int m = 0; m < ts.ROWS; m++ ) {
         index[m] = m;
         signal[m] = ts.value[m];
-        uncert[m] = sqrt(fabs(signal[m]));
+        uncert[m] = 1.;//sqrt(fabs(signal[m]));
       }
     } else if ( 2 == ts.COLS ) {
       for ( int m = 0; m < ts.ROWS; m++ ) {
         index[m] = ts.value[m*ts.COLS];
         signal[m] = ts.value[m*ts.COLS+1];
-        uncert[m] = sqrt(fabs(signal[m]));
+        uncert[m] = 1.;//sqrt(fabs(signal[m]));
       }
     } else if ( 3 == ts.COLS ) {
       for ( int m = 0; m < ts.ROWS; m++ ) {
