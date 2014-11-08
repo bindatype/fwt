@@ -1,7 +1,7 @@
 # Copyright (C) 2010 Glen Alan MacLachlan
 
 CC=gcc
-CFLAGS=  -Wall -g -ansi -std=c99 -O0 -fopenmp -lgomp
+CFLAGS=  -Wall -g -ansi -std=c99 -O3 -fopenmp -lgomp
 LDFLAGS= #-lgomp
 CMATH= -lm 
 INCLUDE=-I ./include

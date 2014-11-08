@@ -303,8 +303,9 @@ int main(int argc, char **argv)
 		for ( int i = 0; i < ts.ROWS; i++)
 			temp[(i+offset)%(ts.ROWS)]  = signal[i]; //Back wrap to front or vice versa 
 
-		for ( int i = 0; i < ts.ROWS; i++)
-			signal[i] = temp[i]; // Back wrap to front or vice versa 
+//		for ( int i = 0; i < ts.ROWS; i++)
+//			signal[i] = temp[i]; // Back wrap to front or vice versa 
+		memmove(signal,temp,ts.ROWS);
 
 		for( int k = 1; k <= ts.ROWS/2; k <<= 1 ){
 
@@ -354,8 +355,11 @@ int main(int argc, char **argv)
 
 			/* Repeat until signal is decimated. */
 		}
+/*
 		for ( int i = 0; i < ts.ROWS; i++)
 			temp[i]=signal[i];
+*/
+                memmove(temp,signal,ts.ROWS);
 
 		for ( int i = 0; i < ts.ROWS; i++)
 			signal[i] = temp[(i+offset)%(ts.ROWS)];
