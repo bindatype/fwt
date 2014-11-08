@@ -116,7 +116,8 @@ int main(int argc, char **argv)
 				exit(EXIT_SUCCESS);
 
 			default:
-				abort ();
+				puts("Option not recognized. Try --help or -h");
+				exit (2);
 		}
 	}
 
@@ -181,7 +182,7 @@ int main(int argc, char **argv)
 			free( uncert );
 			free( temp );
 			free(ts.value);
-			abort();
+			exit(2);
 		}
 
 	/*********** PREPARE BOOTSTRAP NOISE *************************/
@@ -242,7 +243,7 @@ int main(int argc, char **argv)
 					free(ts.value);
 					if (gaus || pois)
 						free (boot_noise);
-					abort();
+					exit(2);
 			}
 		} 
 		else if ( 0 == strcmp (filter_type,"coif") )
@@ -281,7 +282,7 @@ int main(int argc, char **argv)
 					free(ts.value);
 					if (gaus || pois)
 						free (boot_noise);
-					abort();
+					exit(2);
 			}   
 		}
 		else
