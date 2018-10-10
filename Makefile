@@ -33,6 +33,9 @@ get_min:
 get_max:
 	$(CC) $(CFLAGS) $(INCLUDE) $(OBJECTS) $(SRC)/get_max.c -o get_max $(CMATH) 
 
+get_sum:
+	$(CC) $(CFLAGS) $(INCLUDE) $(OBJECTS) $(SRC)/get_sum.c -o get_sum $(CMATH)
+	
 agg:
 	$(CC) $(CFLAGS) $(INCLUDE) $(OBJECTS) $(SRC)/agg.c -o agg $(CMATH) 
 
@@ -59,13 +62,14 @@ install:
 	install -c dagg /usr/local/bin
 	install -c agg /usr/local/bin
 	install -c get_mean /usr/local/bin
+	install -c get_sum /usr/local/bin
 	install -c get_min /usr/local/bin
 	install -c get_max /usr/local/bin
 	install -c get_variance /usr/local/bin
 	
 
 clean:
-	rm $(OBJECTS) $(EXE) wavelet_variance heatmap reverse_tail agg dagg get_mean get_min get_max get_variance 
+	rm $(OBJECTS) $(EXE) wavelet_variance heatmap reverse_tail agg dagg get_mean get_min get_max get_sum get_variance 
 
 clean_objects:
 	rm $(OBJECTS)
