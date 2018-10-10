@@ -10,7 +10,7 @@ OBJECTS= usage.o get_data.o math_helper.o
 EXE=fwt
 
 
-all: get_data math_helper usage fwt wavelet_variance heatmap reverse_tail get_mean get_variance get_min get_max agg dagg
+all: get_data math_helper usage fwt wavelet_variance heatmap reverse_tail get_mean get_variance get_min get_max agg get_sum dagg
 
 fwt: 
 	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDE) $(OBJECTS) $(SRC)/$(EXE).c -o $(EXE) $(CMATH) 
